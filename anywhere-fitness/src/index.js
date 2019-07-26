@@ -8,12 +8,15 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import reducer from './components/reducers/index';
+import { BrowserRouter } from 'react-router-dom';
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));
 
 const app = (
     <Provider store={store}>
-        <App/>
+        <BrowserRouter>
+            <App/>
+        </BrowserRouter>
     </Provider>
 )
 
