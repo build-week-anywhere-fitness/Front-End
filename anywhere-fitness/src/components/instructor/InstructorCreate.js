@@ -13,9 +13,9 @@ class InstructorCreate extends React.Component {
     render() {
         return (
             <form className="create-instructor">
-                <input type="text" name="name" value={this.state.name} required />
-                <input type="text" name="username" value={this.state.username} required />
-                <input type="text" name="password" value={this.state.password} required />
+                <input type="text" name="name" placeholder="Enter your fullname" value={this.state.name} required />
+                <input type="text" name="username" placeholder="Username" value={this.state.username} required />
+                <input type="text" name="password" placeholder="Password" value={this.state.password} required />
             </form>
         )
     }
