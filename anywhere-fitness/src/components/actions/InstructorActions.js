@@ -6,13 +6,13 @@ export const INSTRUCTOR_LOGIN_FAILED = 'INSTRUCTOR_LOGIN_FAILED'
 
 const url = 'https://anywhere-fitness-azra-be.herokuapp.com'
 
-export function login(username, password) {
+export function instructorLogin(username, password) {
     return (dispatch) => {
         dispatch({ type: INSTRUCTOR_LOGIN_START })
 
         return axios.post(`${url}/api/auth/login`, {username, password})
             .then((res) => {
-                console.log(res)
+                localStorage.setItem('token', res.data.token)
                 dispatch({ type: INSTRUCTOR_LOGIN_SUCCESS })
             })
             .catch((err) => {
