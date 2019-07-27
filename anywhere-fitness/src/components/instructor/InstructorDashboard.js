@@ -1,5 +1,6 @@
 import React from 'react';
 import InstructorCreate from './InstructorCreate';
+import InstructorLogin from './InstructorLogin';
 
 class InstructorDashboard extends React.Component {
 
@@ -7,6 +8,7 @@ class InstructorDashboard extends React.Component {
         return (
             <div className="dashboard">
                 <InstructorCreate />
+                <InstructorLogin />
             </div>
         )
     }

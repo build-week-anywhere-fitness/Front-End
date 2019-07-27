@@ -17,7 +17,7 @@ class InstructorLogin extends React.Component {
     render() {
         return (
             <div className="login">
-                <h1>Create Your Instructor Account</h1>
+                <h1>Login To Your Instructor Account</h1>
                 <form className="create-instructor">
                     <input type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.changeHandler} required />
                     <input type="text" name="password" placeholder="Password" value={this.state.password} onChange={this.changeHandler} required />
