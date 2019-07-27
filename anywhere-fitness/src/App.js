@@ -1,11 +1,13 @@
 import React from 'react';
-import InstructorDashboard from '../src/components/instructor/InstructorDashboard';
 import './App.css';
+import { Link, Route } from 'react-router-dom';
+import InstructorLanding from './components/instructor/InstructorLanding'
 
 function App() {
   return (
     <div className="App">
-      <InstructorDashboard />
+      <Link to="/instructor/dashboard">Instructor</Link>
+      <Route exact path="/instructor/dashboard" component={InstructorLanding} />
     </div>
   );
 }
