@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class InstructorLogin extends React.Component {
     constructor() {
@@ -23,6 +24,7 @@ class InstructorLogin extends React.Component {
                     <input type="text" name="password" placeholder="Password" value={this.state.password} onChange={this.changeHandler} required />
                     <button type="submit">Create Account</button>
                 </form>
+                <p>Don't have an account? click <Link to="/instructor/create">here</Link> to create your account</p>
             </div>
         )
     }

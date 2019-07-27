@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <Link to="/instructor/dashboard">Instructor</Link>
-      <Route exact path="/instructor/dashboard" component={InstructorLanding} />
+      <Route path="/instructor" component={InstructorLanding} />
     </div>
   );
 }
