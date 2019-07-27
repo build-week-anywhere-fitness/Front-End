@@ -7,8 +7,7 @@ class InstructorDashboard extends React.Component {
     render() {
         return (
             <div className="dashboard">
-                <InstructorCreate />
-                <InstructorLogin />
+                <h1>Hello</h1>
             </div>
         )
     }
