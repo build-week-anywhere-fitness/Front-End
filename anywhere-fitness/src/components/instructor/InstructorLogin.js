@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { instructorLogin } from '../actions/InstructorActions';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom'
 
 class InstructorLogin extends React.Component {
     constructor() {
