@@ -16,6 +16,7 @@ export function instructorLogin(username, password) {
 
         return axios.post(`${url}/api/auth/login`, {username, password})
             .then((res) => {
+                console.log("Login Success", res)
                 localStorage.setItem('token', res.data.token)
                 dispatch({ type: INSTRUCTOR_LOGIN_SUCCESS })
             })
