@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 class InstructorDashboard extends React.Component {
 
@@ -10,6 +11,7 @@ class InstructorDashboard extends React.Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <div className="dashboard">
                 <button type="button" onClick={this.logout}>Logout</button>
@@ -19,4 +21,4 @@ class InstructorDashboard extends React.Component {
     }
 }
 
-export default InstructorDashboard;
+export default withRouter(InstructorDashboard);

@@ -4,8 +4,8 @@ import { instructorLogin } from '../actions/InstructorActions';
 import { connect } from 'react-redux';
 
 class InstructorLogin extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             username: '',
             password: '',
@@ -24,7 +24,7 @@ class InstructorLogin extends React.Component {
 
         this.props.instructorLogin(username, password)
             .then(() => {
-                this.props.history.push("/instructor/dashboard")
+                this.props.history.push(`/instructor/dashboard/${this.props.instructorId}`)
             })
             .catch((err) => {
                 console.log('login', err)
@@ -46,8 +46,14 @@ class InstructorLogin extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        instructorId: state.instructorId
+    }
+}
+
 const mapDispatchToProps = {
     instructorLogin,
 }
 
-export default connect(null, mapDispatchToProps)(InstructorLogin);
+export default connect(mapStateToProps, mapDispatchToProps)(InstructorLogin);
