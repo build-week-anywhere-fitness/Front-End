@@ -3,6 +3,7 @@ import './App.css';
 import ClientList from './components/client/ClientList';
 import {connect} from "react-redux";
 import {getClients} from "./components/actions/index";
+import Form from "./components/client/ClientForm";
 
 class App extends Component {
 
@@ -13,7 +14,8 @@ class App extends Component {
   render() {
     return (
     <div className="App">
-      <ClientList/>      
+      <Form/>
+      <ClientList/>
     </div>
     );
   }
