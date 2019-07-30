@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
+import ClientList from './components/client/ClientList';
+import {connect} from "react-redux";
+import {getClients} from "./components/actions/index";
 
-function App() {
-  return (
+class App extends Component {
+
+  componentDidMount() {
+    this.props.getClients()
+  }
+
+  render() {
+    return (
     <div className="App">
-      
+      <ClientList/>      
     </div>
-  );
+    );
+  }
+  
 }
 
-export default App;
+const mapDispatchToProps ={
+  getClients
+}
+export default connect(null,mapDispatchToProps)(App);
