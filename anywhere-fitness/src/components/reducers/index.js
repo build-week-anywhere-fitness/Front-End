@@ -1,7 +1,11 @@
-import { INSTRUCTOR_LOGIN_SUCCESS } from '../actions/InstructorActions'
+import { 
+    INSTRUCTOR_LOGIN_SUCCESS,
+    INSTRUCTOR_CLASSES_SUCCESS
+     } from '../actions/InstructorActions'
 
 const initialState = {
-    instructorId: null
+    instructorId: null,
+    classes: []
 };
 
 export default function(state = initialState, action) {
@@ -11,6 +15,12 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 instructorId: action.payload.instructor[0].id
+            }
+        }
+        case INSTRUCTOR_CLASSES_SUCCESS: {
+            return {
+                ...state,
+                classes: action.payload
             }
         }
         default:

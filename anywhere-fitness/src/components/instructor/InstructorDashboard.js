@@ -1,7 +1,14 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { instructorClasses } from '../actions/InstructorActions';
+import Class from '../classes/Class';
 
 class InstructorDashboard extends React.Component {
+
+    componentDidMount() {
+        this.props.instructorClasses(this.props.match.params.id)
+    }
 
     logout = (event) => {
         event.preventDefault()
@@ -11,14 +18,30 @@ class InstructorDashboard extends React.Component {
     }
 
     render() {
-        console.log(this.props)
+        console.log("dashboard", this.props)
         return (
             <div className="dashboard">
                 <button type="button" onClick={this.logout}>Logout</button>
                 <h1>Hello</h1>
+                <h2>Your Classes</h2>
+                {this.props.classes.map(classes => (
+                    <Class classes={classes} key={classes.classId} />
+                ))}
             </div>
         )
     }
 }
 
-export default withRouter(InstructorDashboard);
+const mapStateToProps = (state) => {
+    return {
+        classes: state.classes
+    }
+}
+
+const mapDispatchToProps = {
+    instructorClasses,
+}
+
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(InstructorDashboard)
+    );

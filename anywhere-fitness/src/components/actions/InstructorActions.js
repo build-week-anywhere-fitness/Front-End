@@ -55,13 +55,14 @@ export function instructorClasses(id) {
 			Authorization: localStorage.getItem('token'),
 		}
 
-        axios.get(`${url}/api/instructors/${id}/classes`, headers)
+        axios.get(`${url}/api/instructors/${id}/classes`, { headers })
             .then((res) => {
-                console.log(res);
-                dispatch({ type: INSTRUCTOR_CLASSES_SUCCESS})
+                console.log("classes", res.data);
+                dispatch({ type: INSTRUCTOR_CLASSES_SUCCESS, payload: res.data})
             })
             .catch((err) => {
                 console.log(err)
+                dispatch({ type: INSTRUCTOR_CLASSES_FAILED})
             })
     }
 }
