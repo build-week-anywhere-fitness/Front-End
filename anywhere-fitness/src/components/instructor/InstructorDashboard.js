@@ -1,9 +1,10 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { instructorClasses } from '../actions/InstructorActions';
 import Class from '../classes/Class';
 import ClassesCreate from '../classes/ClassesCreate'
+import ClassEdit from '../classes/ClassEdit'
 
 
 class InstructorDashboard extends React.Component {
@@ -29,6 +30,7 @@ class InstructorDashboard extends React.Component {
                     <Class classes={classes} key={classes.classId} />
                 ))}
                 <ClassesCreate />
+                <Route path="/instructor/dashboard/class/edit/:id" exact render={(props) => <ClassEdit {...props} classes={this.props.classes} />} />
             </div>
         )
     }
