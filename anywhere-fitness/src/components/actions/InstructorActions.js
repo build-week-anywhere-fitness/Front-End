@@ -45,7 +45,7 @@ export function instructorRegister(fullname, username, password) {
                 dispatch({ type: INSTRUCTOR_REGISTER_SUCCESS, payload: res.data })
             })
             .catch((err) => {
-                console.log(err);
+                console.log("Create Class Error", err);
                 dispatch({ type: INSTRUCTOR_REGISTER_FAILED })
             })
     }
@@ -61,7 +61,6 @@ export function instructorClasses(id) {
 
         axios.get(`${url}/api/instructors/${id}/classes`, { headers })
             .then((res) => {
-                console.log("classes", res.data);
                 dispatch({ type: INSTRUCTOR_CLASSES_SUCCESS, payload: res.data})
             })
             .catch((err) => {
@@ -76,16 +75,22 @@ export function createClass(info) {
         dispatch({ type: CREATE_CLASS_START })
 
         const headers = {
-			Authorization: localStorage.getItem('token'),
+            Authorization: localStorage.getItem('token'),
         }
+
+        const data = {
+            body: info,
+        }
+
+        console.log("Create Class Info", info)
         
-        axios.post(`${url}/api/classes`, { headers }, { info })
+        axios.post(`${url}/api/classes`, { data }, { headers })
             .then((res) => {
                 console.log("create class", res.data);
                 dispatch({ type: CREATE_CLASS_SUCCESS, payload: res.data })
             })
             .catch((err) => {
-                console.log(err)
+                console.log("Create Class Error", err)
                 dispatch({ type: CREATE_CLASS_FAILED})
             })
     }

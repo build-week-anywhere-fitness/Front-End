@@ -32,7 +32,6 @@ class ClassesCreate extends React.Component {
     }
 
     render() {
-        console.log('class create', this.props)
         return (
             <div className="create-class">
                 <h3>Create a Class</h3>

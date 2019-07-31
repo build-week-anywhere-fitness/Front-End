@@ -20,7 +20,6 @@ class InstructorDashboard extends React.Component {
     }
 
     render() {
-        console.log("dashboard", this.props)
         return (
             <div className="dashboard">
                 <button type="button" onClick={this.logout}>Logout</button>
