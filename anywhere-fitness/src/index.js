@@ -5,10 +5,13 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from "react-redux"
 import store from "./components/store/store"
+import {BrowserRouter} from "react-router-dom";
 
 const app = (
     <Provider store={store}>
-        <App/>
+        <BrowserRouter>
+            <App/>
+        </BrowserRouter>
     </Provider>
 )
 

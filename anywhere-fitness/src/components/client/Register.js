@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import uuid from "uuid";
 import {addClient} from "../actions/index";
 
-class Form extends Component {
+class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -60,4 +60,4 @@ const mapDispatchToProps = {
     addClient
 }
 
-export default connect(null, mapDispatchToProps)(Form);
+export default connect(null, mapDispatchToProps)(Register);

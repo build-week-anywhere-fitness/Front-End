@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 
-function ClientList(props) {
+function ClassList(props) {
     return (
         <div>
             {props.error && <p className="error">{props.error}</p>}
             <div>
-                {props.clients.map(item => {
+                {props.classes.map(item => {
                     return (
                         <p key={item.id}>Name: {item.name} Email: {item.email}</p>
                     )
@@ -44,4 +44,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(ClientList);
+export default connect(mapStateToProps)(ClassList);

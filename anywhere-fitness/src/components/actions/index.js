@@ -1,12 +1,16 @@
 import axios from "axios";
 
-export const ADD_CLIENT_START = "ADD_CLIENT_START"; 
-export const ADD_CLIENT_SUCCESS = "ADD_CLIENT_SUCCESS";
-export const ADD_CLIENT_FAIL = "ADD_CLIENT_FAIL";
+export const REGISTER_CLIENT_START = "ADD_CLIENT_START"; 
+export const REGISTER_CLIENT_SUCCESS = "ADD_CLIENT_SUCCESS";
+export const REGISTER_CLIENT_FAIL = "ADD_CLIENT_FAIL";
 
-export const GET_CLIENT_START = "GET_CLIENT_START";
-export const GET_CLIENT_SUCCESS = "GET_CLIENT_SUCCESS";
-export const GET_CLIENT_FAIL = "GET_CLIENT_FAIL";
+// export const GET_CLIENT_START = "GET_CLIENT_START";
+// export const GET_CLIENT_SUCCESS = "GET_CLIENT_SUCCESS";
+// export const GET_CLIENT_FAIL = "GET_CLIENT_FAIL";
+
+export const LOGIN_START = "LOGIN_START";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAILED = "LOGIN_FAILED";
 
 // export const ADD_PUNCH_CARD_START = "ADD_PUNCH_CARD_START";
 // export const ADD_PUNCH_CARD_SUCCESS = "ADD_PUNCH_CARD_SUCCESS";
@@ -20,35 +24,53 @@ export const GET_CLIENT_FAIL = "GET_CLIENT_FAIL";
 // export const GET_INSTRUCTOR_LIST_SUCCESS = "GET_INSTRUCTOR_LIST_SUCCESS";
 // export const GET_INSTRUCTOR_LIST_FAIL = "GET_INSTRUCTOR_LIST_FAIL";
 
-// export const GET_CLASS_LIST_START = "GET_CLASS_LIST_START";
-// export const GET_CLASS_LIST_SUCCESS = "GET_CLASS_LIST_SUCCESS";
-// export const GET_CLASS_LIST_FAIL = "GET_CLASS_LIST_FAIL";
+export const GET_CLASS_LIST_START = "GET_CLASS_LIST_START";
+export const GET_CLASS_LIST_SUCCESS = "GET_CLASS_LIST_SUCCESS";
+export const GET_CLASS_LIST_FAIL = "GET_CLASS_LIST_FAIL";
 
-
-export function getClients() {
+export function addClient(newClient) {
     return (dispatch) => {
-        dispatch ({type: GET_CLIENT_START})
+        dispatch({ type: REGISTER_CLIENT_START });
+        
         axios
-            .get("https://anywhere-fitness-azra-be.herokuapp.com/clients")
+            .post("https://anywhere-fitness-azra-be.herokuapp.com/api/auth/client-register",newClient)
             .then((response) => {
-                dispatch({type: GET_CLIENT_SUCCESS, payload: response.data})
+                dispatch({ type: REGISTER_CLIENT_SUCCESS, payload: response.data });
             })
             .catch((err) => {
-                dispatchEvent({type: GET_CLIENT_FAIL, payload: err.response.data})
+                dispatch({ type: REGISTER_CLIENT_FAIL, payload: err.response.data });
             })
     }
 }
 
-export function addClient(newClient) {
+export function getClasses(id) {
     return (dispatch) => {
-        dispatch({ type: ADD_CLIENT_START })
+        dispatch ({type: GET_CLASS_LIST_START});
+        
         axios
-            .post("https://anywhere-fitness-azra-be.herokuapp.com/clients",newClient)
+            .get("https://anywhere-fitness-azra-be.herokuapp.com/api/clients/:id/classes")
             .then((response) => {
-                dispatch({ type: ADD_CLIENT_SUCCESS, payload: response.data })
+                dispatch({type: GET_CLASS_LIST_SUCCESS, payload: response.data});
             })
             .catch((err) => {
-                dispatchEvent({ type: ADD_CLIENT_FAIL, payload: err.response.data })
+                dispatch({type: GET_CLASS_LIST_FAIL, payload: err.response.data});
+            })
+    }
+}
+
+export function login (username, password) {
+    return (dispatch) => {
+        dispatch({type: LOGIN_START});
+
+        axios
+            .post("https://anywhere-fitness-azra-be.herokuapp.com/api/auth/client-login", {username,password})
+            .then((response)=> {
+                localStorage.setItem("token",response.data.token);
+                dispatch({type:LOGIN_SUCCESS});
+            }) 
+            .catch((err)=> {
+                const payload = err.response ? err.response.data : err;
+                dispatch({type: LOGIN_FAILED, payload});
             })
     }
 }

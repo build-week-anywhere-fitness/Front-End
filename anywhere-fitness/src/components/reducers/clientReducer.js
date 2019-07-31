@@ -1,7 +1,12 @@
 import {
-    ADD_CLIENT_START,
-    ADD_CLIENT_SUCCESS,
-    ADD_CLIENT_FAIL,
+
+    LOGIN_START,
+    LOGIN_SUCCESS,
+    LOGIN_FAILED,
+
+    REGISTER_CLIENT_START,
+    REGISTER_CLIENT_SUCCESS,
+    REGISTER_CLIENT_FAIL,
 
     GET_CLIENT_START,
     GET_CLIENT_SUCCESS,
@@ -48,26 +53,45 @@ const intialState = {
     deletingClient: false,
     deletingPunchCard: false,
 
+    loadingLogin: false,
+
     error: null,
 }
 
 export default function clientReducer (state=intialState, action) {
     switch (action.type) {
-        case ADD_CLIENT_START:
+
+        case LOGIN_START:
+            return {
+                ...state,
+                loadingLogin: true,
+            }
+        case LOGIN_SUCCESS:
+            return {
+                ...state,
+                loadingLogin: false,
+                error: null,
+            }
+        case LOGIN_FAILED:
+            return {
+                ...state,
+                loadingLogin: false,
+                error: action.payload.message
+            }
+
+        case REGISTER_CLIENT_START:
             return {
                 ...state,
                 creatingClient: true,
             }
-        
-        case ADD_CLIENT_SUCCESS:
+        case REGISTER_CLIENT_SUCCESS:
             return {
                 ...state,
                 creatingClient: false,
                 error: null,
                 clients: action.payload,
             }
-
-        case ADD_CLIENT_FAIL:
+        case REGISTER_CLIENT_FAIL:
             return {
                 ...state,
                 creatingClient: false,
@@ -79,7 +103,6 @@ export default function clientReducer (state=intialState, action) {
                 ...state,
                 readingClients: true,
             }
-
         case GET_CLIENT_SUCCESS:
             return {
                 ...state,
@@ -87,15 +110,14 @@ export default function clientReducer (state=intialState, action) {
                 error: null,
                 clients: action.payload,
             }
-
         case GET_CLIENT_FAIL:
             return {
                 ...state,
                 readingClients: false,
                 error: action.payload.message,
             }
+
         default:
             return state;
     }
 }
-

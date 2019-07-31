@@ -1,28 +1,18 @@
 import React, { Component } from 'react';
 import './App.css';
-import ClientList from './components/client/ClientList';
-import {connect} from "react-redux";
-import {getClients} from "./components/actions/index";
-import Form from "./components/client/ClientForm";
+import {Route} from "react-router-dom";
+import PrivateRoute from "./components/client/PrivateRoute";
+import Login from "./components/client/Login";
+import DashBoard from "./components/client/Dashboard";
 
 class App extends Component {
-
-  componentDidMount() {
-    this.props.getClients()
-  }
-
   render() {
     return (
     <div className="App">
-      <Form/>
-      <ClientList/>
+      <PrivateRoute exact path="/" component={DashBoard} />
+      <Route exact path="/login" component={Login} />
     </div>
     );
   }
-  
 }
-
-const mapDispatchToProps ={
-  getClients
-}
-export default connect(null,mapDispatchToProps)(App);
+export default App
