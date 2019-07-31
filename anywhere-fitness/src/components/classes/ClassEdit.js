@@ -24,20 +24,29 @@ class ClassEdit extends React.Component {
         this.setState({ [event.target.name]: event.target.value })
     }
 
+    cancelHandler = (event) => {
+        event.preventDefault()
+        this.props.history.goBack()
+    }
+
     render(){
+        console.log("class edit", this.props)
+        const currentClass = this.props.classes.filter(current => (current.classId === parseInt(this.props.match.params.id)))
+        console.log(currentClass[0].className)
         return (
             <div className="edit-class">
                 <h3>Edit Your Class</h3>
                 <form onSubmit={this.submitHandler}>
-                    <input type="text" name="className" placeholder="Enter the name of your class" value={this.state.className} onChange={this.changeHandler} />
-                    <input type="text" name="description" placeholder="Enter the description of your class" value={this.state.description} onChange={this.changeHandler} />
-                    <input type="text" name="address" placeholder="Street" value={this.state.address} onChange={this.changeHandler} />
-                    <input type="text" name="city" placeholder="City" value={this.state.city} onChange={this.changeHandler} />
-                    <input type="text" name="state" placeholder="State" value={this.state.state} onChange={this.changeHandler} />
-                    <input type="text" name="zipcode" placeholder="Zip" value={this.state.zipcode} onChange={this.changeHandler} />
-                    <input type="date" name="date" placeholder="mm/dd/yyy" value={this.state.date} onChange={this.changeHandler} />
-                    <input type="time" name="time" placeholder="Time" value={this.state.time} onChange={this.changeHandler} />
-                    <button type="submit">Create</button>
+                    <input type="text" name="className" placeholder={currentClass[0].className} value={this.state.className} onChange={this.changeHandler} />
+                    <input type="text" name="description" placeholder={currentClass[0].description} value={this.state.description} onChange={this.changeHandler} />
+                    <input type="text" name="address" placeholder={currentClass[0].address} value={this.state.address} onChange={this.changeHandler} />
+                    <input type="text" name="city" placeholder={currentClass[0].city} value={this.state.city} onChange={this.changeHandler} />
+                    <input type="text" name="state" placeholder={currentClass[0].state} value={this.state.state} onChange={this.changeHandler} />
+                    <input type="text" name="zipcode" placeholder={currentClass[0].zipcode} value={this.state.zipcode} onChange={this.changeHandler} />
+                    <input type="date" name="date" placeholder={currentClass[0].date} value={this.state.date} onChange={this.changeHandler} />
+                    <input type="time" name="time" placeholder={currentClass[0].time} value={this.state.time} onChange={this.changeHandler} />
+                    <button type="submit">Update</button>
+                    <button type="button" onClick={this.cancelHandler}>Cancel</button>
                 </form>
 
             </div>
@@ -45,4 +54,10 @@ class ClassEdit extends React.Component {
     }
 }
 
-export default ClassEdit;
+const mapStateToProps = (state) => {
+    return {
+        classes: state.classes
+    }
+}
+
+export default connect(mapStateToProps)(ClassEdit);
