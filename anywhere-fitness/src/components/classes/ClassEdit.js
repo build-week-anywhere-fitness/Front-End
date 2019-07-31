@@ -19,6 +19,11 @@ class ClassEdit extends React.Component {
         }
     }
 
+    changeHandler = (event) => {
+        event.preventDefault();
+        this.setState({ [event.target.name]: event.target.value })
+    }
+
     render(){
         return (
             <div className="edit-class">
@@ -30,7 +35,7 @@ class ClassEdit extends React.Component {
                     <input type="text" name="city" placeholder="City" value={this.state.city} onChange={this.changeHandler} />
                     <input type="text" name="state" placeholder="State" value={this.state.state} onChange={this.changeHandler} />
                     <input type="text" name="zipcode" placeholder="Zip" value={this.state.zipcode} onChange={this.changeHandler} />
-                    <input type="date" name="date" placeholder="Date" value={this.state.date} onChange={this.changeHandler} />
+                    <input type="date" name="date" placeholder="mm/dd/yyy" value={this.state.date} onChange={this.changeHandler} />
                     <input type="time" name="time" placeholder="Time" value={this.state.time} onChange={this.changeHandler} />
                     <button type="submit">Create</button>
                 </form>
