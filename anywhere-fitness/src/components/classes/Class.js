@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const Class = (props) => {
 
@@ -8,7 +9,7 @@ const Class = (props) => {
         <div className="class">
             <p>{props.classes.className}</p>
             <p>{props.classes.address}</p>
-            <button>Edit</button>
+            <Link to={`/instructor/dashboard/class/edit/${props.classes.classId}`}><button>Edit</button></Link>
         </div>
     )
 }
