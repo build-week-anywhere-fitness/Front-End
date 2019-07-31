@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { instructorClasses } from '../actions/InstructorActions';
 import Class from '../classes/Class';
+import ClassesCreate from '../classes/ClassesCreate'
+
 
 class InstructorDashboard extends React.Component {
 
@@ -27,6 +29,7 @@ class InstructorDashboard extends React.Component {
                 {this.props.classes.map(classes => (
                     <Class classes={classes} key={classes.classId} />
                 ))}
+                <ClassesCreate />
             </div>
         )
     }

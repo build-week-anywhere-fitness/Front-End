@@ -12,6 +12,10 @@ export const INSTRUCTOR_CLASSES_START = 'INSTRUCTOR_CLASSES_START'
 export const INSTRUCTOR_CLASSES_SUCCESS = 'INSTRUCTOR_CLASSES_SUCCESS'
 export const INSTRUCTOR_CLASSES_FAILED = 'INSTRUCTOR_CLASSES_FAILED'
 
+export const CREATE_CLASS_START = 'CREATE_CLASS_START'
+export const CREATE_CLASS_SUCCESS = 'CREATE_CLASS_SUCCESS'
+export const CREATE_CLASS_FAILED = 'CREATE_CLASS_FAILED'
+
 const url = 'https://anywhere-fitness-azra-be.herokuapp.com'
 
 export function instructorLogin(username, password) {
@@ -63,6 +67,26 @@ export function instructorClasses(id) {
             .catch((err) => {
                 console.log(err)
                 dispatch({ type: INSTRUCTOR_CLASSES_FAILED})
+            })
+    }
+}
+
+export function createClass(info) {
+    return (dispatch) => {
+        dispatch({ type: CREATE_CLASS_START })
+
+        const headers = {
+			Authorization: localStorage.getItem('token'),
+        }
+        
+        axios.post(`${url}/api/classes`, { headers }, { info })
+            .then((res) => {
+                console.log("create class", res.data);
+                dispatch({ type: CREATE_CLASS_SUCCESS, payload: res.data })
+            })
+            .catch((err) => {
+                console.log(err)
+                dispatch({ type: CREATE_CLASS_FAILED})
             })
     }
 }
