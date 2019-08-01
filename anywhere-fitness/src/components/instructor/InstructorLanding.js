@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 import InstructorDashboard from './InstructorDashboard';
 import PrivateRoute from '../PrivateRoute';
 import InstructorLogin from './InstructorLogin';
@@ -20,4 +20,4 @@ class InstructorLanding extends React.Component {
     }
 }
 
-export default InstructorLanding;
+export default withRouter(InstructorLanding);

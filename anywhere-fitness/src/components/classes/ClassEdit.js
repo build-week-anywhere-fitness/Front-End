@@ -1,21 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import { editClass } from '../actions/InstructorActions'
 
 class ClassEdit extends React.Component {
     constructor(props) {
         super(props)
+        const currentClass = this.props.classes.filter(current => (current.classId === parseInt(this.props.match.params.id)))
         this.state = {
-            address: "",
-            city: "",
-            className: "",
-            date: "",
-            description: "",
+            address: currentClass[0].address,
+            city: currentClass[0].city,
+            className: currentClass[0].className,
+            date: currentClass[0].date,
+            description: currentClass[0].description,
             fullname: this.props.instructorFullname,
             instructorId: this.props.instructorId,
-            state: "",
-            time: "",
+            state: currentClass[0].state,
+            time: currentClass[0].time,
             username: this.props.instructorUsername,
-            zipcode: ""
+            zipcode: currentClass[0].zipcode
         }
     }
 
@@ -29,6 +31,12 @@ class ClassEdit extends React.Component {
         this.props.history.goBack()
     }
 
+    submitHandler = (event) => {
+        event.preventDefault();
+        const { address, city, className, date, description, fullname, instructorId, state, time, username, zipcode } = this.state
+        this.props.editClass(this.props.match.params.id, { address: address, city: city, className: className, date: date, description: description, fullname: fullname, instructorId: instructorId, state: state, time: time, username: username, zipcode: zipcode })
+    }
+
     render(){
         console.log("class edit", this.props)
         const currentClass = this.props.classes.filter(current => (current.classId === parseInt(this.props.match.params.id)))
@@ -37,14 +45,14 @@ class ClassEdit extends React.Component {
             <div className="edit-class">
                 <h3>Edit Your Class</h3>
                 <form onSubmit={this.submitHandler}>
-                    <input type="text" name="className" placeholder={currentClass[0].className} value={this.state.className} onChange={this.changeHandler} />
-                    <input type="text" name="description" placeholder={currentClass[0].description} value={this.state.description} onChange={this.changeHandler} />
-                    <input type="text" name="address" placeholder={currentClass[0].address} value={this.state.address} onChange={this.changeHandler} />
-                    <input type="text" name="city" placeholder={currentClass[0].city} value={this.state.city} onChange={this.changeHandler} />
-                    <input type="text" name="state" placeholder={currentClass[0].state} value={this.state.state} onChange={this.changeHandler} />
-                    <input type="text" name="zipcode" placeholder={currentClass[0].zipcode} value={this.state.zipcode} onChange={this.changeHandler} />
-                    <input type="date" name="date" placeholder={currentClass[0].date} value={this.state.date} onChange={this.changeHandler} />
-                    <input type="time" name="time" placeholder={currentClass[0].time} value={this.state.time} onChange={this.changeHandler} />
+                <input type="text" name="className" placeholder="Enter the name of your class" value={this.state.className} onChange={this.changeHandler} />
+                    <input type="text" name="description" placeholder="Enter the description of your class" value={this.state.description} onChange={this.changeHandler} />
+                    <input type="text" name="address" placeholder="Street" value={this.state.address} onChange={this.changeHandler} />
+                    <input type="text" name="city" placeholder="City" value={this.state.city} onChange={this.changeHandler} />
+                    <input type="text" name="state" placeholder="State" value={this.state.state} onChange={this.changeHandler} />
+                    <input type="text" name="zipcode" placeholder="Zip" value={this.state.zipcode} onChange={this.changeHandler} />
+                    <input type="date" name="date" placeholder="Date" value={this.state.date} onChange={this.changeHandler} />
+                    <input type="time" name="time" placeholder="Time" value={this.state.time} onChange={this.changeHandler} />
                     <button type="submit">Update</button>
                     <button type="button" onClick={this.cancelHandler}>Cancel</button>
                 </form>
@@ -60,4 +68,8 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(ClassEdit);
+const mapDispatchToProps = {
+    editClass
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ClassEdit);

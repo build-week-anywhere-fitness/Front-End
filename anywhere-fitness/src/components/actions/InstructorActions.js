@@ -114,7 +114,7 @@ export function editClass(id, info) {
 
         console.log("Edit Class Info", info)
         
-        axios.post(`${url}/api/classes/${id}`, { data }, { headers })
+        axios.put(`${url}/api/classes/${id}`, { data }, { headers })
             .then((res) => {
                 console.log("create class", res.data);
                 dispatch({ type: EDIT_CLASS_SUCCESS, payload: res.data })
