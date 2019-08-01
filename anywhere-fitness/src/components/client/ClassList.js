@@ -18,28 +18,6 @@ function ClassList(props) {
 
 const mapStateToProps = state => {
     return {
-        clients: state.clientReducer.clients,
-
-        // creatingInstructorList: state.creatingInstructorList,
-        // creatingClassList: state.creatingClassList,
-        creatingClients: state.creatingClients,
-        // creatingPunchCard: state.creatingPunchCard,
-
-        // readingInstructorList: state.readingInstructorList,
-        // readingClassList: state.readingClassList,
-        readingClients: state.readingClients,
-        // readingPunchCard: state.readingPunchCard,
-
-        // updatingInstructorList: state.updatingInstructorList,
-        // updatingClassList: state.updatingClassList,
-        updatingClients: state.updatingClients,
-        updatingPunchCard: state.updatingPunchCard,
-
-        // deletingInstructorList: state.deletingInstructorList,
-        // deletingClassList: state.deletingClassList,
-        deletingClients: state.deletingClients,
-        // deletingPunchCard: state.deletingPunchCard,
-
         error: state.error,
     }
 }

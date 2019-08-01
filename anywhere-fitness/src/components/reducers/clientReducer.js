@@ -1,17 +1,17 @@
 import {
 
-    LOGIN_START,
-    LOGIN_SUCCESS,
-    LOGIN_FAILED,
-
     REGISTER_CLIENT_START,
     REGISTER_CLIENT_SUCCESS,
     REGISTER_CLIENT_FAIL,
-
-    GET_CLIENT_START,
-    GET_CLIENT_SUCCESS,
-    GET_CLIENT_FAIL,
     
+    LOGIN_START,
+    LOGIN_SUCCESS,
+    LOGIN_FAILED,
+    
+    GET_CLASS_LIST_START,
+    GET_CLASS_LIST_SUCCESS,
+    GET_CLASS_LIST_FAIL,
+
     // ADD_PUNCHCARD_START,
     // ADD_PUNCHCARD_SUCCESS,
     // ADD_PUNCHCARD_FAIL,
@@ -23,15 +23,10 @@ import {
     // GET_INSTRUCTOR_LIST_START,
     // GET_INSTRUCTOR_LIST_SUCCESS,
     // GET_INSTRUCTOR_LIST_FAIL,
-
-    // GET_CLASS_LIST_START,
-    // GET_CLASS_LIST_SUCCESS,
-    // GET_CLASS_LIST_FAIL,
-
 } from "../actions/index";
 
 const intialState = {
-    clients: [],
+    classes: [],
 
     creatingInstructorList: false,
     creatingClassList: false,
@@ -40,7 +35,7 @@ const intialState = {
 
     readingInstructorList: false,
     readingClassList: false,
-    readingClients: false,
+    readingClient: false,
     readingPunchCards: false,
 
     updatingInstructorList: false,
@@ -54,31 +49,13 @@ const intialState = {
     deletingPunchCard: false,
 
     loadingLogin: false,
-
+    currentUser: null,
     error: null,
 }
 
 export default function clientReducer (state=intialState, action) {
     switch (action.type) {
-
-        case LOGIN_START:
-            return {
-                ...state,
-                loadingLogin: true,
-            }
-        case LOGIN_SUCCESS:
-            return {
-                ...state,
-                loadingLogin: false,
-                error: null,
-            }
-        case LOGIN_FAILED:
-            return {
-                ...state,
-                loadingLogin: false,
-                error: action.payload.message
-            }
-
+//Processing Registration
         case REGISTER_CLIENT_START:
             return {
                 ...state,
@@ -89,7 +66,6 @@ export default function clientReducer (state=intialState, action) {
                 ...state,
                 creatingClient: false,
                 error: null,
-                clients: action.payload,
             }
         case REGISTER_CLIENT_FAIL:
             return {
@@ -97,25 +73,46 @@ export default function clientReducer (state=intialState, action) {
                 creatingClient: false,
                 error: action.payload.Error,
             }
-
-        case GET_CLIENT_START:
+//Processing Login
+        case LOGIN_START:
             return {
                 ...state,
-                readingClients: true,
+                loadingLogin: true,
             }
-        case GET_CLIENT_SUCCESS:
+        case LOGIN_SUCCESS:
             return {
                 ...state,
-                readingClients: false,
+                loadingLogin: false,
                 error: null,
-                clients: action.payload,
+                currentUser: action.payload,
             }
-        case GET_CLIENT_FAIL:
+        case LOGIN_FAILED:
             return {
                 ...state,
-                readingClients: false,
+                loadingLogin: false,
+                error: action.payload.message
+            }
+//Processing Class list display
+        case GET_CLASS_LIST_START:
+            return {
+                ...state,
+                readingClassList: true,
+            }
+        case GET_CLASS_LIST_SUCCESS:
+            return {
+                ...state,
+                readingClassList: false,
+                error: null,
+                classes: action.payload,
+            }
+        case GET_CLASS_LIST_FAIL:
+            return {
+                ...state,
+                readingClassList: false,
                 error: action.payload.message,
             }
+
+            
 
         default:
             return state;

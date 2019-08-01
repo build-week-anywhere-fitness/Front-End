@@ -15,9 +15,7 @@ class Login extends Component {
     handleChange = event => {
         event.preventDefault()
 
-        this.setState({
-            [event.target.name]: event.target.value,
-        })
+        this.setState({[event.target.name]: event.target.value,})
     }
 
     handleSubmit = event => {
@@ -41,7 +39,6 @@ class Login extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 {error && <p className="error">{error}</p>}
-
                 <input 
                     type="text" 
                     name="username" 
@@ -66,13 +63,12 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-    loadingLogin: state.loadingLogin,
-    error: state.error,
+    loadingLogin: state.clientReducer.loadingLogin,
+    error: state.clientReducer.error,
 })
 
 const mapDispatchToProps = {
     login,
 }
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps,)(Login)
-)
+export default withRouter(connect(mapStateToProps,mapDispatchToProps,)(Login));

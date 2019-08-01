@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {getClient} from "../actions/index";
+import {getClasses} from "../actions/index";
 import ClassList from "./ClassList";
 
 
-class DashBoard extends Component {
+class Dashboard extends Component {
     componentDidMount() {
-        this.props.getClasses()
+        this.props.getClasses(this.props.currentUser[0].id)
     }
 
     logout = event => {
@@ -17,6 +17,7 @@ class DashBoard extends Component {
     }
 
     render() {
+        console.log("Currentuser",this.props.currentUser);
         return (
             <>
                 <button type="button" onClick={this.logout}>Logout</button>
@@ -27,7 +28,13 @@ class DashBoard extends Component {
     }
 }
 
-const mapDispatchToProps ={
-  getClient
+const mapDispatchToProps = {
+  getClasses
 }
-export default withRouter(connect(null,mapDispatchToProps)(DashBoard));
+
+const mapStateToProps = state => {
+    return {currentUser: state.clientReducer.currentUser}
+}
+
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Dashboard));

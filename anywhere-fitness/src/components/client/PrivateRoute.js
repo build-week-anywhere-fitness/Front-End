@@ -12,7 +12,7 @@ export default function (props) {
             const token=localStorage.getItem('token');
             return token
                 ? <Component />
-                : <Redirect to="/login" />
+                : <Redirect to="/register" />
         }}/>
     )
 }

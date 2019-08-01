@@ -1,52 +1,72 @@
 import React, { Component} from "react";
 import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
 import uuid from "uuid";
-import {addClient} from "../actions/index";
+import {registerClient} from "../actions/index";
 
 class Register extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
-            name:"",
-            email:"",
+            fullname:"",
+            username:"",
+            password:"",
         }
     }
 
     handleChange = event => {
+        event.preventDefault()
         this.setState({[event.target.name]: event.target.value})
     }
 
     handleSubmit = event => {
         event.preventDefault();
-        const {name, email} = this.state;
+        
+        const {fullname, username, password} = this.state;
 
         const newClient = {
-            name, 
-            email,
+            fullname,
+            username, 
+            password,
             id: uuid.v4(),
         }
 
-        this.props.addClient(newClient);
-        this.setState({name:"", email:""})
+        this.props.registerClient(newClient)
+            .then(() => {
+                this.props.history.push("/login")
+            })
+            .catch((err) => {
+                console.error(err)
+            })
+
+        this.setState({fullname:"", username:"", password:""})
     }
 
     render() {
-        const {name, email} = this.state;
+        const {fullname, username, password} = this.state;
         return (
             <form onSubmit={this.handleSubmit}>
                 <input
                     type="text"
-                    placeholder="Name"
-                    name="name"
-                    value={name}
+                    placeholder="Full Name"
+                    name="fullname"
+                    value={fullname}
                     onChange={this.handleChange}
                     required
                 />
                 <input
-                    type="email"
-                    placeholder="Email Address"
-                    name="email"
-                    value={email}
+                    type="text"
+                    placeholder="User Name"
+                    name="username"
+                    value={username}
+                    onChange={this.handleChange}
+                    required
+                />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    value={password}
                     onChange={this.handleChange}
                     required
                 />
@@ -56,8 +76,12 @@ class Register extends Component {
     }
 }
 
+const mapStateToProps =state => ({
+    error: state.clientReducer.error,
+})
+
 const mapDispatchToProps = {
-    addClient
+    registerClient
 }
 
-export default connect(null, mapDispatchToProps)(Register);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Register));
