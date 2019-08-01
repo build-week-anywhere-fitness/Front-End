@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createClass } from '../actions/InstructorActions';
+import { createClass, instructorClasses } from '../actions/InstructorActions';
+import { withRouter } from 'react-router-dom';
 
 class ClassesCreate extends React.Component {
     constructor(props) {
@@ -16,7 +17,8 @@ class ClassesCreate extends React.Component {
             state: "",
             time: "",
             username: this.props.instructorUsername,
-            zipcode: ""
+            zipcode: "",
+            categoryId: 1
         }
     }
 
@@ -27,11 +29,29 @@ class ClassesCreate extends React.Component {
 
     submitHandler = (event) => {
         event.preventDefault();
-        const { address, city, className, date, description, fullname, instructorId, state, time, username, zipcode } = this.state
-        this.props.createClass({ address: address, city: city, className: className, date: date, description: description, fullname: fullname, instructorId: instructorId, state: state, time: time, username: username, zipcode: zipcode })
+        const { address, city, className, date, description, fullname, instructorId, state, time, username, zipcode, categoryId } = this.state
+        this.props.createClass({ instructor_id: instructorId, category_id: categoryId, name: className })
+            .then(() => {
+                this.props.instructorClasses(this.props.match.params.id)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+        this.setState({ 
+            address: '',
+            city: '',
+            className: '',
+            date: '',
+            description: '',
+            fullname: '',
+            state: '',
+            time: '',
+            zipcode: '',
+        })
     }
 
     render() {
+        console.log("Create", this.props)
         return (
             <div className="create-class">
                 <h3>Create a Class</h3>
@@ -60,7 +80,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    createClass
+    createClass,
+    instructorClasses
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClassesCreate);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ClassesCreate));

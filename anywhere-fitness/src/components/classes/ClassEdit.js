@@ -17,7 +17,8 @@ class ClassEdit extends React.Component {
             state: currentClass[0].state,
             time: currentClass[0].time,
             username: this.props.instructorUsername,
-            zipcode: currentClass[0].zipcode
+            zipcode: currentClass[0].zipcode,
+            categoryId: currentClass[0].categoryId
         }
     }
 
@@ -56,7 +57,6 @@ class ClassEdit extends React.Component {
                     <button type="submit">Update</button>
                     <button type="button" onClick={this.cancelHandler}>Cancel</button>
                 </form>
-
             </div>
         )
     }

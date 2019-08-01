@@ -20,6 +20,10 @@ export const EDIT_CLASS_START = 'EDIT_CLASS_START'
 export const EDIT_CLASS_SUCCESS = 'EDIT_CLASS_SUCCESS'
 export const EDIT_CLASS_FAILED = 'EDIT_CLASS_FAILED'
 
+export const DELETE_CLASS_START = 'DELETE_CLASS_START'
+export const DELETE_CLASS_SUCCESS = 'DELETE_CLASS_SUCCESS'
+export const DELETE_CLASS_FAILED = 'DELETE_CLASS_FAILED'
+
 const url = 'https://anywhere-fitness-azra-be.herokuapp.com'
 
 export function instructorLogin(username, password) {
@@ -82,19 +86,15 @@ export function createClass(info) {
             Authorization: localStorage.getItem('token'),
         }
 
-        const data = {
-            body: info,
-        }
-
-        console.log("Create Class Info", info)
+        console.log("Create Class Info", info, headers)
         
-        axios.post(`${url}/api/classes`, { data }, { headers })
+        return axios.post(`${url}/api/classes`, info, { headers })
             .then((res) => {
                 console.log("create class", res.data);
                 dispatch({ type: CREATE_CLASS_SUCCESS, payload: res.data })
             })
             .catch((err) => {
-                console.log("Create Class Error", err)
+                console.log("Create Class Error", err.message)
                 dispatch({ type: CREATE_CLASS_FAILED})
             })
     }
@@ -108,13 +108,9 @@ export function editClass(id, info) {
             Authorization: localStorage.getItem('token'),
         }
 
-        const data = {
-            body: info,
-        }
-
         console.log("Edit Class Info", info)
         
-        axios.put(`${url}/api/classes/${id}`, { data }, { headers })
+        return axios.put(`${url}/api/classes/${id}`, info, { headers })
             .then((res) => {
                 console.log("create class", res.data);
                 dispatch({ type: EDIT_CLASS_SUCCESS, payload: res.data })
@@ -122,6 +118,27 @@ export function editClass(id, info) {
             .catch((err) => {
                 console.log("Edit Class Error", err)
                 dispatch({ type: EDIT_CLASS_FAILED})
+            })
+    }
+}
+
+export function deleteClass(id) {
+    return (dispatch) => {
+        dispatch({ type: DELETE_CLASS_START })
+
+        const headers = {
+            Authorization: localStorage.getItem('token'),
+        }
+
+        console.log("Delete Class Info", id)
+
+        return axios.delete(`${url}/api/classes/${id}`, { headers })
+            .then((res) => {
+                dispatch({ type: DELETE_CLASS_SUCCESS, payload: res.data })
+            })
+            .catch((err) => {
+                console.log(err)
+                dispatch({ type: DELETE_CLASS_FAILED })
             })
     }
 }
