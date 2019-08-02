@@ -54,7 +54,7 @@ class ClassesCreate extends React.Component {
             state: "",
             time: "",
             zipcode: "",
-            categoryId: ""
+            categoryId: 1,
         }
     }
 
