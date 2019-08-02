@@ -113,7 +113,7 @@ class ClassesCreate extends React.Component {
                     <FormControl className={classes.formControl}>
                     <Input type="time" name="time" placeholder="Time" value={this.state.time} onChange={this.changeHandler} />
                     </FormControl>
-                    <FormControl required>
+                    <FormControl className={classes.formControl} required>
                     <InputLabel>Category</InputLabel>
                     <Select variant="outlined" name="categoryId" value={this.state.categoryId} onChange={this.changeHandler}>
                         <MenuItem value=""></MenuItem>
@@ -127,7 +127,7 @@ class ClassesCreate extends React.Component {
                     <FormHelperText>Required</FormHelperText>
                     </FormControl>
                     <div className={classes.buttonContainer}>
-                    <Button type="submit" variant="outlined">Create</Button>
+                    <Button type="submit" variant="outlined" color="primary">Create</Button>
                     </div>
                 </form>
             </div>

@@ -4,7 +4,16 @@ import { connect } from 'react-redux';
 import { instructorClasses } from '../actions/InstructorActions';
 import Class from '../classes/Class';
 import ClassesCreate from '../classes/ClassesCreate'
+import { withStyles } from '@material-ui/core/styles';
 
+const styles = theme =>({
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        margin: '0 auto',
+        maxWidth: '1000px',
+    }
+  })
 
 class InstructorDashboard extends React.Component {
 
@@ -21,15 +30,18 @@ class InstructorDashboard extends React.Component {
 
     render() {
         console.log("Dashboard", this.props)
+        const { classes } = this.props;
         return (
             <div className="dashboard">
                 <button type="button" onClick={this.logout}>Logout</button>
                 <h1>Hello</h1>
                 <h2>Your Classes</h2>
-                {this.props.classes.map(classes => (
-                    <Class classes={classes} key={classes.classId} />
+                <div className={classes.container}>
+                {this.props.instructorclass.map(classes => (
+                    <Class instructorclass={classes} key={classes.classId} />
                 ))}
                 <ClassesCreate />
+                </div>
             </div>
         )
     }
@@ -37,7 +49,7 @@ class InstructorDashboard extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        classes: state.instructorReducer.classes
+        instructorclass: state.instructorReducer.classes
     }
 }
 
@@ -46,5 +58,5 @@ const mapDispatchToProps = {
 }
 
 export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(InstructorDashboard)
+    connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(InstructorDashboard))
     );
