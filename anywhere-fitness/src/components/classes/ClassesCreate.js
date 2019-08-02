@@ -16,15 +16,23 @@ const styles = theme => ({
         display: 'flex',
         flexWrap: 'wrap',
         maxWidth: 900,
-        margin: 'auto',
+        margin: '40px auto',
+        justifyContent: 'center',
       },
     formControl: {
-        margin: theme.spacing(1),
+        margin: theme.spacing(2),
         minWidth: 120,
       },
     selectEmpty: {
         marginTop: theme.spacing(2),
       },
+    button: {
+        margin: theme.spacing(2),
+      },
+    buttonContainer: {
+        width: '100%',
+        margin: '10px auto'
+    }
 })
 
 class ClassesCreate extends React.Component {
@@ -118,7 +126,9 @@ class ClassesCreate extends React.Component {
                     </Select>
                     <FormHelperText>Required</FormHelperText>
                     </FormControl>
+                    <div className={classes.buttonContainer}>
                     <Button type="submit" variant="outlined">Create</Button>
+                    </div>
                 </form>
             </div>
         )
