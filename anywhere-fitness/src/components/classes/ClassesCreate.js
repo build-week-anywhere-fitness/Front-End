@@ -10,12 +10,12 @@ import InputLabel from '@material-ui/core/InputLabel'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import Input from '@material-ui/core/Input'
 import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
     root: {
         display: 'flex',
         flexWrap: 'wrap',
-        maxWidth: 900,
         margin: '40px auto',
         justifyContent: 'center',
       },
@@ -32,6 +32,12 @@ const styles = theme => ({
     buttonContainer: {
         width: '100%',
         margin: '10px auto'
+    }, 
+    container: {
+        margin: '40px auto',
+        maxWidth: 900,
+        borderTop: "1px solid lightgray",
+        paddingTop: '40px'
     }
 })
 
@@ -48,7 +54,7 @@ class ClassesCreate extends React.Component {
             state: "",
             time: "",
             zipcode: "",
-            categoryId: 1
+            categoryId: ""
         }
     }
 
@@ -77,7 +83,7 @@ class ClassesCreate extends React.Component {
             state: '',
             time: '',
             zipcode: '',
-            categoryId:'',
+            categoryId: 1,
         })
     }
 
@@ -85,8 +91,10 @@ class ClassesCreate extends React.Component {
         console.log("Create", this.state)
         const { classes } = this.props 
         return (
-            <div className="create-class">
-                <h3>Create a Class</h3>
+            <div className={classes.container}>
+                <Typography variant="h5" component="h3"><b>Create a Class</b></Typography>
+                {this.props.createError && <Typography color="error" component="p" variant="body1">{this.props.createError}</Typography>}
+                {this.props.createMessage && <Typography color="primary" component="p" variant="body1">{this.props.createMessage}</Typography>}
                 <form onSubmit={this.submitHandler} className={classes.root}>
                     <FormControl required className={classes.formControl}>
                     <Input type="text" name="className" placeholder="Enter the name of your class" value={this.state.className} onChange={this.changeHandler} required />
@@ -113,9 +121,9 @@ class ClassesCreate extends React.Component {
                     <FormControl className={classes.formControl}>
                     <Input type="time" name="time" placeholder="Time" value={this.state.time} onChange={this.changeHandler} />
                     </FormControl>
-                    <FormControl className={classes.formControl} required>
+                    <FormControl required className={classes.formControl}>
                     <InputLabel>Category</InputLabel>
-                    <Select variant="outlined" name="categoryId" value={this.state.categoryId} onChange={this.changeHandler}>
+                    <Select variant="outlined" name="categoryId" value={this.state.categoryId} onChange={this.changeHandler} required>
                         <MenuItem value=""></MenuItem>
                         <MenuItem value={1}>Pilates</MenuItem>
                         <MenuItem value={2}>Yoga</MenuItem>
@@ -140,6 +148,8 @@ const mapStateToProps = (state) => {
         instructorId: state.instructorReducer.instructorId,
         instructorFullname: state.instructorReducer.instructorFullname,
         instructorUsername: state.instructorReducer.instructorUsername,
+        createMessage: state.instructorReducer.createMessage,
+        createError: state.instructorReducer.createError,
     }
 }
 

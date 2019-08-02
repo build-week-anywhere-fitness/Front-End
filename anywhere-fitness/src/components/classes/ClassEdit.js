@@ -9,6 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import Input from '@material-ui/core/Input'
 import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
     root: {
@@ -31,6 +32,9 @@ const styles = theme => ({
     buttonContainer: {
         width: '100%',
         margin: '10px auto'
+    },
+    title: {
+        marginTop: '30px'
     }
 })
 
@@ -49,7 +53,7 @@ class ClassEdit extends React.Component {
             state: currentClass[0].state,
             time: currentClass[0].time,
             zipcode: currentClass[0].zipcode,
-            categoryId: currentClass[0].categoryId
+            categoryId: 1
         }
     }
 
@@ -72,11 +76,11 @@ class ClassEdit extends React.Component {
     render(){
         console.log("class edit", this.props)
         const { classes } = this.props
-        const currentClass = this.props.instructorclasses.filter(current => (current.classId === parseInt(this.props.match.params.id)))
-        console.log(currentClass[0].className)
         return (
             <div className="edit-class">
-                <h3>Edit Your Class</h3>
+                <Typography variant="h5" component="h3" className={classes.title}><b>Edit Your Class</b></Typography>
+                {this.props.editError && <Typography color="error" component="p" variant="body1">{this.props.editError}</Typography>}
+                {this.props.editMessage && <Typography color="primary" component="p" variant="body1">{this.props.editMessage}</Typography>}
                 <form onSubmit={this.submitHandler} className={classes.root}>
                     <FormControl required className={classes.formControl}>
                     <Input type="text" name="className" placeholder="Enter the name of your class" value={this.state.className} onChange={this.changeHandler} required />
@@ -128,7 +132,10 @@ class ClassEdit extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        instructorclasses: state.instructorReducer.classes
+        instructorclasses: state.instructorReducer.classes,
+        editMessage: state.instructorReducer.editMessage,
+        editError: state.instructorReducer.editError,
+        instructorId: state.instructorReducer.instructorId,
     }
 }
 

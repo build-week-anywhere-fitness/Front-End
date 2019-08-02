@@ -2,6 +2,36 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { instructorLogin } from '../actions/InstructorActions';
 import { connect } from 'react-redux';
+import FormHelperText from '@material-ui/core/FormHelperText'
+import Input from '@material-ui/core/Input'
+import { withStyles } from '@material-ui/core/styles';
+import FormControl from '@material-ui/core/FormControl';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+
+const styles = theme => ({
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        maxWidth: 1000,
+        margin: '20px auto',
+        justifyContent: 'center',
+      },
+    formControl: {
+        margin: theme.spacing(2),
+        minWidth: 120,
+      },
+    button: {
+        margin: theme.spacing(1),
+      },
+    buttonContainer: {
+        width: '100%',
+        margin: '10px auto 0'
+    },
+    title: {
+        marginTop: '30px'
+    }
+})
 
 class InstructorLogin extends React.Component {
     constructor(props) {
@@ -25,6 +55,7 @@ class InstructorLogin extends React.Component {
         this.props.instructorLogin(username, password)
             .then(() => {
                 this.props.history.push(`/instructor/dashboard/${this.props.instructorId}`)
+                this.setState({ username: "", password: "", })
             })
             .catch((err) => {
                 console.log('login', err)
@@ -32,13 +63,24 @@ class InstructorLogin extends React.Component {
     }
 
     render() {
+        const { classes } = this.props
+        console.log("Login", this.props)
         return (
-            <div className="login" onSubmit={this.handleSubmit}>
-                <h1>Login To Your Instructor Account</h1>
-                <form className="create-instructor">
-                    <input type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.changeHandler} required />
-                    <input type="text" name="password" placeholder="Password" value={this.state.password} onChange={this.changeHandler} required />
-                    <button type="submit">Login</button>
+            <div className="login">
+                <Typography className={classes.title} gutterBottom variant="h4" component="h1"><b>Login To Your Instructor Account</b></Typography>
+                 {this.props.instructorError && <Typography color="error" component="p" variant="body1">{this.props.instructorError}</Typography>}
+                <form className={classes.root} onSubmit={this.handleSubmit}>
+                    <FormControl required className={classes.formControl}>
+                    <Input type="text" name="username" placeholder="Username" value={this.state.className} onChange={this.changeHandler} required />
+                    <FormHelperText>Required</FormHelperText>
+                    </FormControl>
+                    <FormControl required className={classes.formControl}>
+                    <Input type="password" name="password" placeholder="Password" value={this.state.className} onChange={this.changeHandler} required />
+                    <FormHelperText>Required</FormHelperText>
+                    </FormControl>
+                    <div className={classes.buttonContainer}>
+                    <Button type="submit" variant="outlined" color="primary" className={classes.button}>Login</Button>
+                    </div>
                 </form>
                 <p>Don't have an account? click <Link to="/instructor/create">here</Link> to create your account</p>
             </div>
@@ -48,7 +90,8 @@ class InstructorLogin extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        instructorId: state.instructorReducer.instructorId
+        instructorId: state.instructorReducer.instructorId,
+        instructorError: state.instructorReducer.instructorError,
     }
 }
 
@@ -56,4 +99,4 @@ const mapDispatchToProps = {
     instructorLogin,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(InstructorLogin);
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(InstructorLogin));

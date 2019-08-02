@@ -48,7 +48,7 @@ class Class extends React.Component {
                 <Card className={classes.card}>
                     <CardActionArea className={classes.cardaction}>
                         <CardContent>
-                            <Typography gutterBottom component="h2" variant="h4">
+                            <Typography gutterBottom component="h2" variant="h6">
                                 <b>{this.props.instructorclass.className}</b>
                             </Typography>
                             <Typography gutterBottom component="h2" variant="body1">
