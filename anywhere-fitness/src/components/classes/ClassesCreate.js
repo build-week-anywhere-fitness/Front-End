@@ -137,9 +137,9 @@ class ClassesCreate extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        instructorId: state.instructorId,
-        instructorFullname: state.instructorFullname,
-        instructorUsername: state.instructorUsername,
+        instructorId: state.instructorReducer.instructorId,
+        instructorFullname: state.instructorReducer.instructorFullname,
+        instructorUsername: state.instructorReducer.instructorUsername,
     }
 }
 

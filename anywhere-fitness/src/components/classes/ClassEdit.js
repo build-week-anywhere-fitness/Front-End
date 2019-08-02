@@ -62,7 +62,7 @@ class ClassEdit extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        classes: state.classes
+        classes: state.instructorReducer.classes
     }
 }
 

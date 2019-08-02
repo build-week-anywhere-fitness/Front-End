@@ -20,6 +20,7 @@ class InstructorDashboard extends React.Component {
     }
 
     render() {
+        console.log("Dashboard", this.props)
         return (
             <div className="dashboard">
                 <button type="button" onClick={this.logout}>Logout</button>
@@ -36,7 +37,7 @@ class InstructorDashboard extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        classes: state.classes
+        classes: state.instructorReducer.classes
     }
 }
 

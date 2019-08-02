@@ -48,7 +48,7 @@ class InstructorLogin extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        instructorId: state.instructorId
+        instructorId: state.instructorReducer.instructorId
     }
 }
 
