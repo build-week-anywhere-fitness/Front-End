@@ -15,6 +15,8 @@ const styles = theme => ({
     root: {
         display: 'flex',
         flexWrap: 'wrap',
+        maxWidth: 900,
+        margin: 'auto',
       },
     formControl: {
         margin: theme.spacing(1),
@@ -77,18 +79,32 @@ class ClassesCreate extends React.Component {
         return (
             <div className="create-class">
                 <h3>Create a Class</h3>
-                <form onSubmit={this.submitHandler}>
+                <form onSubmit={this.submitHandler} className={classes.root}>
                     <FormControl required className={classes.formControl}>
                     <Input type="text" name="className" placeholder="Enter the name of your class" value={this.state.className} onChange={this.changeHandler} required />
                     <FormHelperText>Required</FormHelperText>
                     </FormControl>
-                    <input type="text" name="description" placeholder="Enter the description of your class" value={this.state.description} onChange={this.changeHandler} />
-                    <input type="text" name="address" placeholder="Street" value={this.state.address} onChange={this.changeHandler} />
-                    <input type="text" name="city" placeholder="City" value={this.state.city} onChange={this.changeHandler} />
-                    <input type="text" name="state" placeholder="State" value={this.state.state} onChange={this.changeHandler} />
-                    <input type="text" name="zipcode" placeholder="Zip" value={this.state.zipcode} onChange={this.changeHandler} />
-                    <input type="date" name="date" placeholder="Date" value={this.state.date} onChange={this.changeHandler} />
-                    <input type="time" name="time" placeholder="Time" value={this.state.time} onChange={this.changeHandler} />
+                    <FormControl className={classes.formControl}>
+                    <Input type="text" name="description" placeholder="Enter your class description" value={this.state.description} onChange={this.changeHandler} />
+                    </FormControl>
+                    <FormControl className={classes.formControl}>
+                    <Input type="text" name="address" placeholder="Street" value={this.state.address} onChange={this.changeHandler} />
+                    </FormControl>
+                    <FormControl className={classes.formControl}>
+                    <Input type="text" name="city" placeholder="City" value={this.state.city} onChange={this.changeHandler} />
+                    </FormControl>
+                    <FormControl className={classes.formControl}>
+                    <Input type="text" name="state" placeholder="State" value={this.state.state} onChange={this.changeHandler} />
+                    </FormControl>
+                    <FormControl className={classes.formControl}>
+                    <Input type="text" name="zipcode" placeholder="Zip" value={this.state.zipcode} onChange={this.changeHandler} />
+                    </FormControl>
+                    <FormControl className={classes.formControl}>
+                    <Input type="date" name="date" placeholder="Date" value={this.state.date} onChange={this.changeHandler} />
+                    </FormControl>
+                    <FormControl className={classes.formControl}>
+                    <Input type="time" name="time" placeholder="Time" value={this.state.time} onChange={this.changeHandler} />
+                    </FormControl>
                     <FormControl required>
                     <InputLabel>Category</InputLabel>
                     <Select variant="outlined" name="categoryId" value={this.state.categoryId} onChange={this.changeHandler}>
