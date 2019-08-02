@@ -12,11 +12,9 @@ class ClassEdit extends React.Component {
             className: currentClass[0].className,
             date: currentClass[0].date,
             description: currentClass[0].description,
-            fullname: this.props.instructorFullname,
             instructorId: this.props.instructorId,
             state: currentClass[0].state,
             time: currentClass[0].time,
-            username: this.props.instructorUsername,
             zipcode: currentClass[0].zipcode,
             categoryId: currentClass[0].categoryId
         }
@@ -34,8 +32,8 @@ class ClassEdit extends React.Component {
 
     submitHandler = (event) => {
         event.preventDefault();
-        const { address, city, className, date, description, fullname, instructorId, state, time, username, zipcode } = this.state
-        this.props.editClass(this.props.match.params.id, { address: address, city: city, className: className, date: date, description: description, fullname: fullname, instructorId: instructorId, state: state, time: time, username: username, zipcode: zipcode })
+        const { address, city, className, date, description, fullname, instructorId, state, time, username, zipcode, categoryId } = this.state
+        this.props.editClass(this.props.match.params.id, { address: address, city: city, name: className, date: date, description: description, instructor_id: instructorId, state: state, time: time, zipcode: zipcode, category_id: categoryId })
     }
 
     render(){
