@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-const Navbar = () => {
+const Navbar = (props) => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -26,7 +26,7 @@ const Navbar = () => {
           <Typography variant="h6" className={classes.title}>
             Instructor Portal for Anytime Fitness
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit" onClick={props.logout}>Logout</Button>
         </Toolbar>
       </AppBar>
     </div>

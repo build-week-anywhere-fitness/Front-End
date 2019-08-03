@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { instructorClasses } from '../actions/InstructorActions';
 import Class from '../classes/Class';
 import ClassesCreate from '../classes/ClassesCreate'
+import Navbar from './NavBar';
 
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -44,7 +45,8 @@ class InstructorDashboard extends React.Component {
         const { classes } = this.props;
         return (
             <div className="dashboard">
-                <button type="button" onClick={this.logout}>Logout</button>
+                <Navbar logout={this.logout}/>
+                {/* <button type="button" onClick={this.logout}>Logout</button> */}
                 <Typography gutterBottom variant="h4" component="h1" className={classes.title}><b>{this.props.instructorMessage ? this.props.instructorMessage : "Welcome!"}</b></Typography>
                 <div className={classes.container}>
                 <Typography gutterBottom component="h2" variant="h5" align="left" className={classes.sectionTitle}><b>Your Classes:</b></Typography>
