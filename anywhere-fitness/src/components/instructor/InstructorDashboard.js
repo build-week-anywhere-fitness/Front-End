@@ -1,10 +1,32 @@
 import React from 'react';
-import { withRouter, Route } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { instructorClasses } from '../actions/InstructorActions';
 import Class from '../classes/Class';
 import ClassesCreate from '../classes/ClassesCreate'
+import Navbar from './NavBar';
 
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+
+const styles = theme =>({
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        margin: '0 auto',
+        maxWidth: '1000px',
+    },
+    sectionTitle: {
+        width: "100%",
+        margin: theme.spacing(1)
+    },
+    text: {
+        margin: theme.spacing(1)
+    },
+    title: {
+        margin: '20px auto'
+    }
+  })
 
 class InstructorDashboard extends React.Component {
 
@@ -20,15 +42,19 @@ class InstructorDashboard extends React.Component {
     }
 
     render() {
+        const { classes } = this.props;
         return (
             <div className="dashboard">
-                <button type="button" onClick={this.logout}>Logout</button>
-                <h1>Hello</h1>
-                <h2>Your Classes</h2>
-                {this.props.classes.map(classes => (
-                    <Class classes={classes} key={classes.classId} />
-                ))}
+                <Navbar logout={this.logout}/>
+                {/* <button type="button" onClick={this.logout}>Logout</button> */}
+                <Typography gutterBottom variant="h4" component="h1" className={classes.title}><b>{this.props.instructorMessage ? this.props.instructorMessage : "Welcome!"}</b></Typography>
+                <div className={classes.container}>
+                <Typography gutterBottom component="h2" variant="h5" align="left" className={classes.sectionTitle}><b>Your Classes:</b></Typography>
+                {this.props.instructorclass.length !== 0 ? this.props.instructorclass.map(classes => (
+                    <Class instructorclass={classes} key={classes.classId} />
+                )) : <Typography gutterBottom component="h2" variant="body1" className={classes.text}>You don't have any classes yet. Scroll down to the 'Create a Class' section to create a class.</Typography>}
                 <ClassesCreate />
+                </div>
             </div>
         )
     }
@@ -36,7 +62,8 @@ class InstructorDashboard extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        classes: state.classes
+        instructorclass: state.instructorReducer.classes,
+        instructorMessage: state.instructorReducer.instructorMessage
     }
 }
 
@@ -45,5 +72,5 @@ const mapDispatchToProps = {
 }
 
 export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(InstructorDashboard)
+    connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(InstructorDashboard))
     );

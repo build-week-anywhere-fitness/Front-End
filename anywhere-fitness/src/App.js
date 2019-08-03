@@ -16,7 +16,7 @@ class App extends Component {
       <PrivateRoute exact path="/" component={Dashboard} />
       <Route exact path="/register" component={Register} />
       <Route exact path="/login" component={Login} />
-      <Link to="/instructor/dashboard">Instructor</Link>
+      <Link to="/instructor/login">Instructor</Link>
       <Route path="/instructor" component={InstructorLanding} />
     </div>
     );
