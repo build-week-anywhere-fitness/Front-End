@@ -48,7 +48,7 @@ class ClassesCreate extends React.Component {
             address: "",
             city: "",
             className: "",
-            date: null,
+            date: "",
             description: "",
             instructorId: this.props.instructorId,
             state: "",
@@ -115,8 +115,9 @@ class ClassesCreate extends React.Component {
                     <FormControl className={classes.formControl}>
                     <Input type="text" name="zipcode" placeholder="Zip" value={this.state.zipcode} onChange={this.changeHandler} />
                     </FormControl>
-                    <FormControl className={classes.formControl}>
-                    <Input type="date" name="date" placeholder="Date" value={this.state.date} onChange={this.changeHandler} />
+                    <FormControl required className={classes.formControl}>
+                    <Input type="date" name="date" placeholder="Date" value={this.state.date} onChange={this.changeHandler} required/>
+                    <FormHelperText>Required</FormHelperText>
                     </FormControl>
                     <FormControl className={classes.formControl}>
                     <Input type="time" name="time" placeholder="Time" value={this.state.time} onChange={this.changeHandler} />
