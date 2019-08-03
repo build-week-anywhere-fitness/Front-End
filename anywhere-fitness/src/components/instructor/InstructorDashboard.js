@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { instructorClasses } from '../actions/InstructorActions';
 import Class from '../classes/Class';
 import ClassesCreate from '../classes/ClassesCreate'
+
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 

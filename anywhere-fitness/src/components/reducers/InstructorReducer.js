@@ -2,6 +2,9 @@ import {
     INSTRUCTOR_LOGIN_SUCCESS,
     INSTRUCTOR_LOGIN_START,
     INSTRUCTOR_LOGIN_FAILED,
+    INSTRUCTOR_REGISTER_START,
+    INSTRUCTOR_REGISTER_SUCCESS,
+    INSTRUCTOR_REGISTER_FAILED,
     INSTRUCTOR_CLASSES_SUCCESS,
     CREATE_CLASS_START,
     CREATE_CLASS_SUCCESS,
@@ -22,6 +25,8 @@ const initialState = {
     createLoading: false,
     editMessage: "",
     editError: "",
+    registerMessage: "",
+    registerError: "",
     classes: []
 };
 
@@ -53,6 +58,27 @@ export default function instructorReducer(state = initialState, action) {
                 instructorError: "Invalid Username or Password",
                 instructorMessage: "",
                 instructorLoading: false,
+            }
+        }
+        case INSTRUCTOR_REGISTER_START: {
+            return {
+                ...state,
+                registerError: "",
+                registerMessage: "",
+            }
+        }
+        case INSTRUCTOR_REGISTER_SUCCESS: {
+            return {
+                ...state,
+                registerError: "",
+                registerMessage: "Account created successfully!"
+            }
+        }
+        case INSTRUCTOR_REGISTER_FAILED: {
+            return {
+                ...state,
+                registerError: "This username already exists. Please choose a different username",
+                registerMessage: "",
             }
         }
         case INSTRUCTOR_CLASSES_SUCCESS: {

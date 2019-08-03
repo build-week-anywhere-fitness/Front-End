@@ -110,7 +110,6 @@ class ClassEdit extends React.Component {
                     <FormControl className={classes.formControl} required>
                     <InputLabel>Category</InputLabel>
                     <Select variant="outlined" name="categoryId" value={this.state.categoryId} onChange={this.changeHandler}>
-                        <MenuItem value=""></MenuItem>
                         <MenuItem value={1}>Pilates</MenuItem>
                         <MenuItem value={2}>Yoga</MenuItem>
                         <MenuItem value={3}>Lagree</MenuItem>

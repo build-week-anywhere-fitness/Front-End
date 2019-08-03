@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { instructorRegister } from '../actions/InstructorActions'
+
 import FormHelperText from '@material-ui/core/FormHelperText'
 import Input from '@material-ui/core/Input'
 import { withStyles } from '@material-ui/core/styles';
@@ -54,19 +55,16 @@ class InstructorCreate extends React.Component {
         const { name, username, password } = this.state
 
         this.props.instructorRegister(name, username, password)
-            .then(() => {
-                this.props.history.push("/instructor/login")
-            })
-            .catch((err) => {
-                console.log('register', err)
-            })
     }
 
     render() {
         const { classes } = this.props
+        console.log("Register", this.props)
         return (
             <div className="create-account">
                 <Typography className={classes.title} gutterBottom variant="h4" component="h1"><b>Create Your Instructor Account</b></Typography>
+                {this.props.registerMessage && <Typography color="primary" component="p" variant="body1">{this.props.registerMessage} Please click <Link to="/instructor/login">here</Link> to login to your account.</Typography>}
+                {this.props.registerError && <Typography color="error" component="p" variant="body1">{this.props.registerError}</Typography>}
                 <form className="create-instructor" onSubmit={this.handleSubmit}>
                     <FormControl required className={classes.formControl}>
                     <Input type="text" name="name" placeholder="Enter your fullname" value={this.state.name} onChange={this.changeHandler} required />
@@ -90,8 +88,15 @@ class InstructorCreate extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        registerMessage: state.instructorReducer.registerMessage,
+        registerError: state.instructorReducer.registerError,
+    }
+}
+
 const mapDispatchToProps = {
     instructorRegister
 }
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(InstructorCreate));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(InstructorCreate));
